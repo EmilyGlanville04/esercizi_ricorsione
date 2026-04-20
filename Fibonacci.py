@@ -6,6 +6,8 @@ class Fibonacci:
 
     def __init__(self):
         self.cache = {0:0,1:1}
+        self.ricorsione = 0
+        self.ricorsione_cache = 0
 
     def calcola_elemento(self,n):
         #terminale
@@ -15,6 +17,7 @@ class Fibonacci:
             return 1
         #caso ricorsivo
         else:
+            self.ricorsione += 1
             return self.calcola_elemento(n-1)+self.calcola_elemento(n-2)
 
     def calcola_elemento_cache(self,n):
@@ -24,6 +27,7 @@ class Fibonacci:
             return self.cache[n]
         #altrimenti devo andare avanti con la ricorsione
         else:
+            self.ricorsione_cache+=1
             self.cache[n] = (self.calcola_elemento_cache(n-1) + self.calcola_elemento_cache(n-2))
             return self.cache[n]
 
@@ -39,19 +43,21 @@ class Fibonacci:
 
 
 if __name__ == "__main__":
-    N = 40
+    N = 30
     fib = Fibonacci()
     start_time = time()
-    print(fib.calcola_elemento(N))
+    print(f"Rsultato:",fib.calcola_elemento(N))
     end_time = time()
-    print(f"Elapsed time- recursion: {end_time-start_time}")
+    print(f"Elapsed time - recursion: {end_time-start_time}")
+    print(f"N° ricorsioni senza cache:",fib.ricorsione)
 
     start_time = time()
-    print(fib.calcola_elemento_cache(N))
+    print(f"Rsultato:",fib.calcola_elemento_cache(N))
     end_time = time()
     print(f"Elapsed time - cache: {end_time - start_time}")
+    print(f"N° ricorsioni con cache:",fib.ricorsione_cache)
 
     tart_time = time()
-    print(fib.calcola_elemento_lru(N))
+    print(f"Rsultato:",fib.calcola_elemento_lru(N))
     end_time = time()
     print(f"Elapsed time - lru: {end_time - start_time}")
