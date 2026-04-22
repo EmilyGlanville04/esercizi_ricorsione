@@ -9,6 +9,7 @@ class Regina():
     def __init__(self, riga, col):
         self.riga = riga
         self.col = col
+        self.soluzioni = []
 
 
 
